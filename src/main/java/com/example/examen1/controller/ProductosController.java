@@ -20,6 +20,17 @@ public class ProductosController {
         return productoInt.consulta();
     }
 
+    @GetMapping(path = "/consultarCodigo/{codigo}")
+    public ContentResponse<List<Producto>> consultarCodigo(@PathVariable String codigo){
+        return productoInt.consultarPorCodigo(codigo);
+    }
+
+    @GetMapping(path = "/consultarDescripcion/{data}")
+    public ContentResponse<List<Producto>> consultarDescripcion(@PathVariable String data){
+
+        return productoInt.consultarPorDescripcion(data);
+    }
+
     @PostMapping(path = "/agregar")
     public ContentResponse<String> agregar(@RequestBody Producto producto){
         return productoInt.agregar(producto);

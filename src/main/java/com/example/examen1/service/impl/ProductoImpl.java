@@ -24,6 +24,26 @@ public class ProductoImpl implements ProductoInt {
         return ventas;
     }
 
+    public ContentResponse<List<Producto>> consultarPorCodigo(String codigo){
+        ContentResponse<List<Producto>> ventas = new ContentResponse<>();
+        List<Producto> listaProd = productoRepository.buscarPorCodigo(codigo);
+        ventas.setData(listaProd);
+        ventas.setCodigo(1);
+        ventas.setError(false);
+        ventas.setStatus(StatusPeticion.EXITO);
+        return ventas;
+    }
+
+    public ContentResponse<List<Producto>> consultarPorDescripcion(String codigo){
+        ContentResponse<List<Producto>> ventas = new ContentResponse<>();
+        List<Producto> listaProd = productoRepository.buscarPorDescripcion(codigo);
+        ventas.setData(listaProd);
+        ventas.setCodigo(1);
+        ventas.setError(false);
+        ventas.setStatus(StatusPeticion.EXITO);
+        return ventas;
+    }
+
     public ContentResponse<String> agregar(Producto producto){
         ContentResponse<String> response = new ContentResponse<>();
         try {
