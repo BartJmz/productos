@@ -33,13 +33,13 @@ public class CategoriaController {
         return categoriaInt.agregar(categoria);
     }
 
-    @PostMapping(path = "/actualizar")
+    @PutMapping(path = "/actualizar")
     public ContentResponse<String> actualizar(@RequestBody Categoria categoria){
 
         return categoriaInt.actualizar(categoria);
     }
 
-    @GetMapping(path = "/eliminar/{idItem}")
+    @DeleteMapping(path = "/eliminar/{idItem}")
     public ContentResponse<String> eliminar(@PathVariable Long idItem){
 
         return categoriaInt.eliminar(idItem);

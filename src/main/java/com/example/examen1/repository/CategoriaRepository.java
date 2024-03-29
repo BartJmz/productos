@@ -13,4 +13,6 @@ public interface CategoriaRepository extends CrudRepository<Categoria, Long> {
     List<Categoria> buscarPorCodigo(String codigo);
     @Query(value="select * from categoria where descripcion like %?1% ",nativeQuery = true)
     List<Categoria> buscarPorDescripcion(String descripcion);
+
+    Categoria findByCodigo(String codigo);
 }

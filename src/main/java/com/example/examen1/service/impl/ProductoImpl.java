@@ -44,6 +44,16 @@ public class ProductoImpl implements ProductoInt {
         return ventas;
     }
 
+    public ContentResponse<List<Producto>> consultarPorCodigoBarra(String codigo){
+        ContentResponse<List<Producto>> ventas = new ContentResponse<>();
+        List<Producto> listaProd = productoRepository.consultaProductosPorCodigo(codigo);
+        ventas.setData(listaProd);
+        ventas.setCodigo(1);
+        ventas.setError(false);
+        ventas.setStatus(StatusPeticion.EXITO);
+        return ventas;
+    }
+
     public ContentResponse<String> agregar(Producto producto){
         ContentResponse<String> response = new ContentResponse<>();
         try {

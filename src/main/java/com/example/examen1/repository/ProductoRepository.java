@@ -14,4 +14,8 @@ public interface ProductoRepository extends CrudRepository<Producto, Long> {
     List<Producto> buscarPorCodigo(String codigo);
     @Query(value="select * from producto where descripcion like %?1% ",nativeQuery = true)
     List<Producto> buscarPorDescripcion(String descripcion);
+
+    @Query(value = "SELECT p.id, p.activo, p.codigo, p.descripcion, categoria_id, codigo_barra_id FROM producto p JOIN codigo_barra cb ON cb.id = p.codigo_barra_id " +
+            "where cb.codigo =?1", nativeQuery = true)
+    List<Producto> consultaProductosPorCodigo(String codigo);
 }

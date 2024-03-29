@@ -2,6 +2,7 @@ package com.example.examen1.service.impl;
 
 import com.example.examen1.entity.Categoria;
 import com.example.examen1.entity.CodigoBarra;
+import com.example.examen1.entity.Producto;
 import com.example.examen1.repository.CodigoBarraRepository;
 import com.example.examen1.service.CodigoBarraInt;
 import com.example.examen1.util.constants.StatusPeticion;
@@ -17,6 +18,16 @@ public class CodigoBarraImpl implements CodigoBarraInt {
     public ContentResponse<List<CodigoBarra>> consulta(){
         ContentResponse<List<CodigoBarra>> codigos = new ContentResponse<>();
         List<CodigoBarra> listaCat = (List<CodigoBarra>) codigoBarraRepository.findAll();
+        codigos.setData(listaCat);
+        codigos.setCodigo(1);
+        codigos.setError(false);
+        codigos.setStatus(StatusPeticion.EXITO);
+        return codigos;
+    }
+
+    public ContentResponse<List<Producto>> consultaProductos(String codigo){
+        ContentResponse<List<Producto>> codigos = new ContentResponse<>();
+        List<Producto> listaCat = (List<Producto>) codigoBarraRepository.consultaProductosPorCodigo(codigo);
         codigos.setData(listaCat);
         codigos.setCodigo(1);
         codigos.setError(false);

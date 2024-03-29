@@ -27,8 +27,12 @@ public class ProductosController {
 
     @GetMapping(path = "/consultarDescripcion/{data}")
     public ContentResponse<List<Producto>> consultarDescripcion(@PathVariable String data){
-
         return productoInt.consultarPorDescripcion(data);
+    }
+
+    @GetMapping(path = "/consultarCodigoBarra/{codigo}")
+    public ContentResponse<List<Producto>> consultar(@PathVariable String codigo){
+        return productoInt.consultarPorCodigoBarra(codigo);
     }
 
     @PostMapping(path = "/agregar")
@@ -36,15 +40,13 @@ public class ProductosController {
         return productoInt.agregar(producto);
     }
 
-    @PostMapping(path = "/actualizar")
+    @PutMapping(path = "/actualizar")
     public ContentResponse<String> actualizar(@RequestBody Producto producto){
-
         return productoInt.actualizar(producto);
     }
 
-    @GetMapping(path = "/eliminar/{idItem}")
+    @DeleteMapping(path = "/eliminar/{idItem}")
     public ContentResponse<String> eliminar(@PathVariable Long idItem){
-
         return productoInt.eliminar(idItem);
     }
 }
