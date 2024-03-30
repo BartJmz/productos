@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CategoriaRepository extends CrudRepository<Categoria, Long> {
 
-    @Query(value="select * from categoria where codigo = ?1", nativeQuery = true)
+    @Query(value="select * from categoria where codigo like %?1%", nativeQuery = true)
     List<Categoria> buscarPorCodigo(String codigo);
     @Query(value="select * from categoria where descripcion like %?1% ",nativeQuery = true)
     List<Categoria> buscarPorDescripcion(String descripcion);

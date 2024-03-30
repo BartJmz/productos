@@ -73,10 +73,15 @@ public class ProductoImpl implements ProductoInt {
     public ContentResponse<String> eliminar(Long idItem){
         ContentResponse<String> response = new ContentResponse<>();
         try {
-            productoRepository.deleteById(idItem);
             response.setCodigo(1);
-            response.setData("Eliminado");
             response.setStatus(StatusPeticion.EXITO);
+            if (productoRepository.existsById(idItem)){
+                productoRepository.deleteById(idItem);
+                response.setData("Eliminado");
+            }else{
+                response.setDescripcion("No se encontró el registro");
+            }
+
         }
         catch (Exception e){
             response.setDescripcion(e.getMessage());
@@ -86,17 +91,25 @@ public class ProductoImpl implements ProductoInt {
         return response;
     }
 
-    public ContentResponse<String> actualizar(Producto student){
+    public ContentResponse<String> actualizar(Producto producto){
         ContentResponse<String> respuesta = new ContentResponse<>();
         respuesta.setStatus(StatusPeticion.ERROR);
         respuesta.setCodigo(0);
-        Producto studentFinded = productoRepository.findById(student.getId()).orElse(new Producto());
-        if (studentFinded.getId()!= null){
-            Producto res = productoRepository.save(student);
-            respuesta.setData(res.toString());
-            respuesta.setCodigo(1);
-            respuesta.setStatus(StatusPeticion.EXITO);
+
+        try {
+            if (productoRepository.existsById(producto.getId())){
+                Producto res = productoRepository.save(producto);
+                respuesta.setData(res.toString());
+                respuesta.setCodigo(1);
+                respuesta.setStatus(StatusPeticion.EXITO);
+            }else{
+                respuesta.setDescripcion("No se encontró el registro");
+            }
+
+        }catch (Exception e){
+            respuesta.setDescripcion(e.getMessage());
         }
+
         return respuesta;
     }
 

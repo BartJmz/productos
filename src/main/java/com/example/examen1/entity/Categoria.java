@@ -6,11 +6,11 @@ import lombok.Data;
 @Data
 @Entity(name = "categoria")
 @Table(name = "categoria")
-
 public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique=true)
     private String codigo;
     private String descripcion;
     private boolean activo;

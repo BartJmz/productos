@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface CodigoBarraInt {
     ContentResponse<List<CodigoBarra>> consulta();
-
-    ContentResponse<List<Producto>> consultaProductos(String codigo);
     ContentResponse<String> agregar(CodigoBarra codigoBarra);
     ContentResponse<String> actualizar(CodigoBarra codigoBarra);
     ContentResponse<String> eliminar(Long idItem);

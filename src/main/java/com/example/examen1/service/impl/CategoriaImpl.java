@@ -63,10 +63,17 @@ public class CategoriaImpl implements CategoriaInt {
     public ContentResponse<String> eliminar(Long idItem){
         ContentResponse<String> response = new ContentResponse<>();
         try {
-            categoriaRepository.deleteById(idItem);
             response.setCodigo(1);
-            response.setData("Eliminado");
             response.setStatus(StatusPeticion.EXITO);
+            if (categoriaRepository.existsById(idItem)){
+                categoriaRepository.deleteById(idItem);
+                response.setData("Eliminado");
+
+            }else{
+                response.setDescripcion("No se encontró el registro");
+
+            }
+
         }
         catch (Exception e){
             response.setDescripcion(e.getMessage());
@@ -80,13 +87,19 @@ public class CategoriaImpl implements CategoriaInt {
         ContentResponse<String> respuesta = new ContentResponse<>();
         respuesta.setStatus(StatusPeticion.ERROR);
         respuesta.setCodigo(0);
-        Categoria catFinded = categoriaRepository.findById(categoria.getId()).orElse(new Categoria());
-        if (catFinded.getId()!= null){
-            Categoria res = categoriaRepository.save(categoria);
-            respuesta.setData(res.toString());
-            respuesta.setCodigo(1);
-            respuesta.setStatus(StatusPeticion.EXITO);
+        try {
+            if (categoriaRepository.existsById(categoria.getId())){
+                Categoria res = categoriaRepository.save(categoria);
+                respuesta.setData(res.toString());
+                respuesta.setCodigo(1);
+                respuesta.setStatus(StatusPeticion.EXITO);
+            }else{
+                respuesta.setDescripcion("No se encontró el registro");
+            }
+        }catch (Exception e){
+            respuesta.setDescripcion(e.getMessage());
         }
+
         return respuesta;
     }
 
